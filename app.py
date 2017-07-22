@@ -4,6 +4,10 @@ from flask import Flask
 # creating application object
 app = Flask(__name__)
 
+# adding debug mode so no need to restart the server
+# everytime we do changes in code
+app.config['DEBUG'] = True
+
 # use the decorator pattern to
 #   link the view function to the URL
 @app.route("/")
@@ -32,6 +36,20 @@ def search(search_query):
 @app.route("/<int:post_id>")
 def search_number(post_id):
     return "post id: %d"%post_id
+
+#dynamic route that accepts	slashes
+@app.route("/path/<path:value>")
+def	path_type(value):
+	print(value)
+	return	"correct"
+
+@app.route("/name/<name>")
+def retName(name):
+    if name.lower() == 'mpk':
+        return "Hello, {}".format(name), 200
+    else:
+        return "Name not found", 404
+
 
 # start the development server using run() method
 if __name__ == '__main__':
